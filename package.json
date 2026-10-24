@@ -1,0 +1,41 @@
+{
+  "name": "resell-profit",
+  "productName": "Resell Profit",
+  "version": "1.0.0",
+  "description": "A simple offline tracker for resale purchases, sales and profit.",
+  "author": "Resell Profit",
+  "main": "main.js",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win portable"
+  },
+  "build": {
+    "appId": "app.resellprofit",
+    "productName": "Resell Profit",
+    "copyright": "Resell Profit",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*"
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "build/icon.png"
+    },
+    "portable": {
+      "artifactName": "Resell Profit.exe"
+    }
+  },
+  "devDependencies": {
+    "electron": "44.7.0",
+    "electron-builder": "26.17.0"
+  },
+  "allowScripts": {
+    "electron@44.7.0": true
+  }
+}

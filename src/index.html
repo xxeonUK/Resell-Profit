@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <!-- Offline only: nothing may be loaded from outside the app. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'none'">
+  <title>Resell Profit</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">RP</div>
+        <span class="brand-name">Resell Profit</span>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item is-active" data-view="dashboard">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h6V4H4zm0 7h6v-5H4zm10 0h6v-9h-6zm0-16v5h6V4z"/></svg>
+          Dashboard
+        </button>
+        <button class="nav-item" data-view="items">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7l9-4 9 4-9 4zm0 5l9 4 9-4M3 17l9 4 9-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+          Items
+        </button>
+      </nav>
+
+      <div class="sidebar-foot">Saved on this PC only</div>
+    </aside>
+
+    <main class="main">
+      <!-- Dashboard -->
+      <section class="view" id="view-dashboard">
+        <header class="view-head">
+          <div>
+            <h1>Dashboard</h1>
+            <p class="subtle">Your profit at a glance</p>
+          </div>
+        </header>
+
+        <div class="stats">
+          <div class="stat stat--hero">
+            <span class="stat-label">Total profit</span>
+            <span class="stat-value" id="stat-total">£0.00</span>
+            <span class="stat-note" id="stat-total-note">All time</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">This month</span>
+            <span class="stat-value" id="stat-month">£0.00</span>
+            <span class="stat-note" id="stat-month-note"></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">This year</span>
+            <span class="stat-value" id="stat-year">£0.00</span>
+            <span class="stat-note" id="stat-year-note"></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Return on investment</span>
+            <span class="stat-value" id="stat-roi">—</span>
+            <span class="stat-note" id="stat-roi-note">Across all sold items</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Items sold</span>
+            <span class="stat-value" id="stat-sold">0</span>
+            <span class="stat-note" id="stat-sold-note"></span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Average profit per item</span>
+            <span class="stat-value" id="stat-avg">—</span>
+            <span class="stat-note">Per sold item</span>
+          </div>
+          <div class="stat">
+            <span class="stat-label">Unsold stock value</span>
+            <span class="stat-value" id="stat-stock">£0.00</span>
+            <span class="stat-note" id="stat-stock-note"></span>
+          </div>
+        </div>
+
+        <div class="card chart-card">
+          <div class="card-head">
+            <div>
+              <h2>Profit by month</h2>
+              <p class="subtle chart-sub" id="chart-sub"></p>
+            </div>
+            <div class="chart-controls">
+              <div class="tabs tabs--small" role="tablist">
+                <button class="tab is-active" data-chart-view="chart">Chart</button>
+                <button class="tab" data-chart-view="table">Table</button>
+              </div>
+              <div class="year-switch">
+                <button class="icon-btn" id="year-prev" aria-label="Previous year">‹</button>
+                <span class="year-label" id="year-label"></span>
+                <button class="icon-btn" id="year-next" aria-label="Next year">›</button>
+              </div>
+            </div>
+          </div>
+          <div class="chart-wrap" id="chart-wrap">
+            <svg class="chart" id="chart" role="img" aria-label="Profit by month"></svg>
+            <div class="chart-tip" id="chart-tip" hidden></div>
+          </div>
+          <div class="chart-table-wrap" id="chart-table-wrap" hidden>
+            <table class="table chart-table">
+              <thead><tr><th>Month</th><th>Items sold</th><th>Profit</th></tr></thead>
+              <tbody id="chart-table-body"></tbody>
+            </table>
+          </div>
+          <div class="empty" id="chart-empty">
+            <p>Your monthly profit chart will appear here once you've sold some items.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Items -->
+      <section class="view" id="view-items" hidden>
+        <header class="view-head">
+          <div>
+            <h1>Items</h1>
+            <p class="subtle">Everything you've bought and sold. Click an item to sell, edit or delete it.</p>
+          </div>
+          <button class="btn btn--primary" id="open-add">+ Add purchase</button>
+        </header>
+
+        <div class="toolbar">
+          <input class="search" id="search" type="search" placeholder="Search by item, order number or email…">
+          <div class="tabs" role="tablist">
+            <button class="tab is-active" data-filter="all">All</button>
+            <button class="tab" data-filter="unsold">Unsold</button>
+            <button class="tab" data-filter="sold">Sold</button>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <table class="table">
+            <colgroup>
+              <col class="col-item">
+              <col class="col-order">
+              <col class="col-email">
+              <col class="col-date">
+              <col class="col-money">
+              <col class="col-date">
+              <col class="col-money">
+              <col class="col-money">
+            </colgroup>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Order Number</th>
+                <th>Email</th>
+                <th>Purchase Date</th>
+                <th>Purchase Price</th>
+                <th>Sold Date</th>
+                <th>Sold Price</th>
+                <th>Profit</th>
+              </tr>
+            </thead>
+            <tbody id="items-body"></tbody>
+          </table>
+          <div class="empty" id="items-empty">
+            <p>No items yet. Click <strong>Add purchase</strong> to add your first one.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Add / edit / duplicate item form -->
+  <div class="modal-backdrop" id="item-modal" hidden>
+    <form class="modal" id="item-form" novalidate autocomplete="off">
+      <header class="modal-head">
+        <h2 id="item-form-title">Add purchase</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+      </header>
+
+      <div class="form-grid">
+        <label class="field span-2">
+          <span class="field-label">Item name</span>
+          <input name="name" placeholder="e.g. Nike Dunk Low Panda">
+        </label>
+        <label class="field span-2">
+          <span class="field-label">Description <em>optional</em></span>
+          <textarea name="description" rows="2" placeholder="Size, colour, condition…"></textarea>
+        </label>
+        <label class="field">
+          <span class="field-label">Order number <em>optional</em></span>
+          <input name="orderNumber">
+        </label>
+        <label class="field">
+          <span class="field-label">Email <em>optional</em></span>
+          <input name="email" type="email" list="email-options" placeholder="Email used for this order">
+        </label>
+        <label class="field" id="date-field">
+          <span class="field-label">Purchase date</span>
+          <input name="purchaseDate" type="date">
+        </label>
+        <label class="field" id="qty-field">
+          <span class="field-label">Quantity</span>
+          <input name="qty" type="number" min="1" max="50" step="1" value="1">
+        </label>
+        <label class="field">
+          <span class="field-label">Price per item</span>
+          <span class="money"><span>£</span><input name="price" inputmode="decimal" placeholder="0.00"></span>
+        </label>
+        <label class="field">
+          <span class="field-label" id="postage-label">Postage <em>optional</em></span>
+          <span class="money"><span>£</span><input name="postage" inputmode="decimal" placeholder="0.00"></span>
+        </label>
+      </div>
+
+      <p class="form-summary" id="item-summary" hidden></p>
+      <p class="form-error" id="item-error" hidden></p>
+
+      <footer class="modal-foot">
+        <button type="button" class="btn" data-close>Cancel</button>
+        <button type="submit" class="btn btn--primary" id="item-form-submit">Add purchase</button>
+      </footer>
+    </form>
+  </div>
+  <datalist id="email-options"></datalist>
+
+  <!-- Item details -->
+  <div class="modal-backdrop" id="details-modal" hidden>
+    <div class="modal modal--wide">
+      <header class="modal-head">
+        <div class="detail-title" id="details-title"></div>
+        <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+      </header>
+      <div id="details-body"></div>
+      <footer class="modal-foot modal-foot--split">
+        <button type="button" class="btn btn--danger-text" id="details-delete">Delete</button>
+        <div class="modal-foot-group">
+          <button type="button" class="btn" id="details-duplicate">Duplicate</button>
+          <button type="button" class="btn" id="details-edit">Edit</button>
+          <button type="button" class="btn btn--primary" id="details-sell">Mark as sold</button>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- Mark as sold / edit sale -->
+  <div class="modal-backdrop" id="sale-modal" hidden>
+    <form class="modal" id="sale-form" novalidate autocomplete="off">
+      <header class="modal-head">
+        <h2 id="sale-form-title">Mark as sold</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">×</button>
+      </header>
+      <p class="subtle sale-item-name" id="sale-item-name"></p>
+
+      <div class="form-grid">
+        <label class="field">
+          <span class="field-label">Sold price</span>
+          <span class="money"><span>£</span><input name="salePrice" inputmode="decimal" placeholder="0.00"></span>
+        </label>
+        <label class="field">
+          <span class="field-label">Sold date</span>
+          <input name="saleDate" type="date">
+        </label>
+        <label class="field">
+          <span class="field-label">Postage paid <em>optional</em></span>
+          <span class="money"><span>£</span><input name="salePostage" inputmode="decimal" placeholder="0.00"></span>
+        </label>
+        <label class="field">
+          <span class="field-label">Selling fees <em>optional</em></span>
+          <span class="money"><span>£</span><input name="saleFees" inputmode="decimal" placeholder="0.00"></span>
+        </label>
+      </div>
+
+      <div class="breakdown" id="sale-preview"></div>
+      <p class="form-error" id="sale-error" hidden></p>
+
+      <footer class="modal-foot modal-foot--split">
+        <button type="button" class="btn btn--danger-text" id="sale-remove">Mark as unsold</button>
+        <div class="modal-foot-group">
+          <button type="button" class="btn" data-close>Cancel</button>
+          <button type="submit" class="btn btn--primary">Save sale</button>
+        </div>
+      </footer>
+    </form>
+  </div>
+
+  <!-- Are you sure? -->
+  <div class="modal-backdrop" id="confirm-modal" hidden>
+    <div class="modal modal--small">
+      <h2 id="confirm-title"></h2>
+      <p class="subtle confirm-text" id="confirm-text"></p>
+      <footer class="modal-foot">
+        <button type="button" class="btn" data-close>Cancel</button>
+        <button type="button" class="btn btn--danger" id="confirm-ok">Delete</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>
