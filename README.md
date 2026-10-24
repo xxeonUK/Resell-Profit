@@ -134,6 +134,11 @@ npm run build
 
 ---
 
+## IMPORTANT
+- This app was created by Claude Code with some changes made by myself.
+- As this app is majority AI Coded please use with caution!
+
+
 ## Licence
 
-*(Choose a licence, e.g. MIT, and add a `LICENSE` file.)*
+*MIT Licence*
