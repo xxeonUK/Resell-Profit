@@ -35,12 +35,12 @@ A simple, offline Windows desktop app for resellers. Record what you buy, mark i
 - Profit counts towards the month an item was **sold**, not bought.
 
 ---
-### Screenshots
+## Screenshots
 
-## Dashboard 
+### Dashboard 
 ![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/dashboard-page-ss.png)
 
-## Items
+### Items
 ![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/items-page-ss.png)
 
 ---
