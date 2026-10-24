@@ -37,12 +37,10 @@ A simple, offline Windows desktop app for resellers. Record what you buy, mark i
 ---
 ### Screenshots
 
-Dashboard
-Inline-style: 
+## Dashboard 
 ![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/dashboard-page-ss.png)
 
-Items
-Inline-style: 
+## Items
 ![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/items-page-ss.png)
 
 ---
