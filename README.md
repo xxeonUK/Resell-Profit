@@ -1,4 +1,5 @@
-![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/icon64.png) # Resell Profit
+![alt text](https://github.com/xxeonUK/Resell-Profit/blob/main/images/icon64.png) 
+# Resell Profit
 
 A simple, offline Windows desktop app for resellers. Record what you buy, mark items as sold, and see your profit at a glance.
 
