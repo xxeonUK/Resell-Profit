@@ -135,7 +135,7 @@ npm run build
 ---
 
 ## IMPORTANT
-- This app was created by Claude Code with some changes made by myself.
+- This app was created by Claude Code (Opus 5.5) with some changes made by myself.
 - As this app is majority AI Coded please use with caution!
 
 
